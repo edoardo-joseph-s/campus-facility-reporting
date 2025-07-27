@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('laporan_kinerjas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations
+     * Reverse the migrations.
      */
     public function down(): void
     {
