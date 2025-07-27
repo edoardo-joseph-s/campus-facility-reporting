@@ -17,6 +17,10 @@ class SemuaLaporanResource extends Resource
 {
     protected static ?string $model = SemuaLaporan::class;
 
+    protected static ?string $navigationGroup = 'MANAJEMEN LAPORAN';
+
+    protected static ?int $navigationIconSort = 1;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

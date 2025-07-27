@@ -50,3 +50,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+#untuk menghungungkan ke database
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: campus-facility-reporting_phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: p455w0rd
+    ports:
+      - "8080:80"
+    depends_on:
+      - db

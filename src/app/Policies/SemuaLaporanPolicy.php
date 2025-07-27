@@ -15,7 +15,7 @@ class SemuaLaporanPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_semua::laporan');
+        return $user->can('view_any_tugaskan::ke::saya');
     }
 
     /**
@@ -23,7 +23,7 @@ class SemuaLaporanPolicy
      */
     public function view(User $user, SemuaLaporan $semuaLaporan): bool
     {
-        return $user->can('view_semua::laporan');
+        return $user->can('view_tugaskan::ke::saya');
     }
 
     /**
@@ -31,7 +31,7 @@ class SemuaLaporanPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_semua::laporan');
+        return $user->can('create_tugaskan::ke::saya');
     }
 
     /**
@@ -39,7 +39,7 @@ class SemuaLaporanPolicy
      */
     public function update(User $user, SemuaLaporan $semuaLaporan): bool
     {
-        return $user->can('update_semua::laporan');
+        return $user->can('update_tugaskan::ke::saya');
     }
 
     /**
@@ -47,7 +47,7 @@ class SemuaLaporanPolicy
      */
     public function delete(User $user, SemuaLaporan $semuaLaporan): bool
     {
-        return $user->can('delete_semua::laporan');
+        return $user->can('delete_tugaskan::ke::saya');
     }
 
     /**
@@ -55,7 +55,7 @@ class SemuaLaporanPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_semua::laporan');
+        return $user->can('delete_any_tugaskan::ke::saya');
     }
 
     /**
