@@ -23,6 +23,10 @@ class TugaskanKeSayaResource extends Resource
     protected static ?string $slug = 'laporan-ditugaskan';
 
     protected static ?string $navigationGroup = 'MANAJEMEN LAPORAN';
+    
+    protected static ?string $modelLabel = 'Tugas';
+    
+    protected static ?string $pluralModelLabel = 'Tugas';
 
     protected static ?int $navigationSort = 2;
 

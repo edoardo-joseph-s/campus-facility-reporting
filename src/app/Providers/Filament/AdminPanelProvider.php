@@ -28,6 +28,12 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->navigationGroups([
+                'MANAJEMEN LAPORAN',
+                'MASTER DATA',
+                'ANALITIK & LAPORAN',
+                'PENGATURAN'
+            ])
             ->id('admin')
             ->path('admin')
             ->spa()
@@ -41,6 +47,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->maxContentWidth(MaxWidth::SevenExtraLarge)
             ->sidebarCollapsibleOnDesktop()
+            ->resources([
+                \App\Filament\Admin\Resources\SemuaLaporanResource::class,
+                \App\Filament\Admin\Resources\TugaskanKeSayaResource::class,
+            ])
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([
@@ -50,10 +60,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
             ->widgets([
                 \Awcodes\Overlook\Widgets\OverlookWidget::class,
-            ])
-            ->navigationGroups([
-                NavigationGroup::make()
-                    ->label('Administration'),
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()
