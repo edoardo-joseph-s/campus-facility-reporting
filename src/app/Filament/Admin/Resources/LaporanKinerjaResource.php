@@ -17,6 +17,8 @@ class LaporanKinerjaResource extends Resource
 {
     protected static ?string $model = LaporanKinerja::class;
 
+    protected static ?string $navigationGroup = 'ANALITIK & LAPORAN';
+    
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
