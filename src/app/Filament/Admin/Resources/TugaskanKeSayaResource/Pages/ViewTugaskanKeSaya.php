@@ -3,10 +3,9 @@
 namespace App\Filament\Admin\Resources\TugaskanKeSayaResource\Pages;
 
 use App\Filament\Admin\Resources\TugaskanKeSayaResource;
-use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ViewRecord;
 
-class ListTugaskanKeSayas extends ListRecords
+class ViewTugaskanKeSaya extends ViewRecord
 {
     protected static string $resource = TugaskanKeSayaResource::class;
 }

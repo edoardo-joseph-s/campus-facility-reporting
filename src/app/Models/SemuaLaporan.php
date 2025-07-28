@@ -7,6 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 class SemuaLaporan extends Model
 {
     protected $table = 'laporan_kinerjas';
+
+    public function lokasi()
+    {
+        return $this->belongsTo(Lokasi::class);
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function ditugaskanKepada()
+    {
+        return $this->belongsTo(User::class, 'ditugaskan_kepada_id');
+    }
     
     protected $fillable = [
         'nomor_laporan',
@@ -15,6 +35,7 @@ class SemuaLaporan extends Model
         'user_id',
         'lokasi_id',
         'kategori_id',
+        'ditugaskan_kepada_id',
         'prioritas',
         'status',
         'catatan',

@@ -17,14 +17,20 @@ class SemuaLaporanResource extends Resource
 {
     protected static ?string $model = SemuaLaporan::class;
 
-    protected static ?string $navigationGroup = 'ANALITIK & LAPORAN';
+    protected static ?string $navigationLabel = 'Semua Laporan';
+
+    protected static ?string $navigationGroup = 'MANAJEMEN LAPORAN';
     
     protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
-    
-    protected static ?string $modelLabel = 'Semua Laporan';
-    protected static ?string $pluralModelLabel = 'Semua Laporan';
+
+    protected static ?string $recordTitleAttribute = 'judul';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -63,6 +69,12 @@ class SemuaLaporanResource extends Resource
 
                         Forms\Components\Section::make('Status dan Prioritas')
                             ->schema([
+                                Forms\Components\Select::make('ditugaskan_kepada_id')
+                                    ->label('Tugaskan Kepada')
+                                    ->relationship('ditugaskanKepada', 'name')
+                                    ->searchable()
+                                    ->preload()
+                                    ->nullable(),
                                 Forms\Components\Select::make('prioritas')
                                     ->label('Prioritas')
                                     ->options([
@@ -171,6 +183,10 @@ class SemuaLaporanResource extends Resource
                     ->label('Pelapor')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('ditugaskanKepada.name')
+                    ->label('Ditugaskan Kepada')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('tanggal_laporan')
                     ->label('Tanggal Laporan')
                     ->date()
@@ -200,10 +216,32 @@ class SemuaLaporanResource extends Resource
                     ->relationship('lokasi', 'nama'),
                 Tables\Filters\SelectFilter::make('kategori')
                     ->relationship('kategori', 'nama'),
+                Tables\Filters\SelectFilter::make('ditugaskan_kepada')
+                    ->relationship('ditugaskanKepada', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('tugaskan')
+                    ->icon('heroicon-o-user-plus')
+                    ->form([
+                        Forms\Components\Select::make('ditugaskan_kepada_id')
+                            ->label('Tugaskan Kepada')
+                            ->relationship('ditugaskanKepada', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required(),
+                    ])
+                    ->action(function (SemuaLaporan $record, array $data): void {
+                        $record->update([
+                            'ditugaskan_kepada_id' => $data['ditugaskan_kepada_id'],
+                            'status' => 'diproses'
+                        ]);
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('Tugaskan Laporan')
+                    ->modalDescription('Pilih user yang akan ditugaskan untuk menangani laporan ini.')
+                    ->color('success'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
